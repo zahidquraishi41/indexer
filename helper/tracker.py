@@ -1,4 +1,5 @@
 from .models import Changes, Info, Log
+from typing import List, Tuple
 import os
 
 
@@ -48,7 +49,7 @@ class Tracker:
 
         return changes
 
-    def __is_false_move(old_info: Info, new_info: Info, renamed_dirs: list[tuple[str, str]]) -> bool:
+    def __is_false_move(old_info: Info, new_info: Info, renamed_dirs: List[Tuple[str, str]]) -> bool:
         for old_name, new_name in renamed_dirs:
             if old_info.path == old_name:
                 return new_info.path == new_name

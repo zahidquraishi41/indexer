@@ -1,5 +1,6 @@
 import sqlite3 as sql
 from time import time
+from typing import List
 
 from .utils import milis_to_alpha
 from .models import Log, Info
@@ -36,7 +37,7 @@ class Database:
                                info.to_tuple())
         self.__con.commit()
 
-    def list_logs(self, index_name: str) -> list[str]:
+    def list_logs(self, index_name: str) -> List[str]:
         log_names = self.__cur.execute('''SELECT log_name FROM info
                     WHERE index_name=? ORDER BY row_id''', (index_name, )).fetchall()
         log_names = [log_name[0] for log_name in log_names]
@@ -78,7 +79,7 @@ class Database:
                                         (index_name, )).fetchone()
             return bool(exists)
 
-    def list_indexes(self) -> list[str]:
+    def list_indexes(self) -> List[str]:
         names = self.__cur.execute('''SELECT DISTINCT(index_name) FROM info
                     ORDER BY row_id''').fetchall()
         names = [name[0] for name in names]
