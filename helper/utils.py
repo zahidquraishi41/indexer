@@ -1,5 +1,6 @@
 import os
-
+import sys
+import platform
 
 def milis_to_alpha(mili: 'int|str'):
     '''Converts each digit in milisecond to alphabet in lower case.'''
@@ -10,4 +11,7 @@ def milis_to_alpha(mili: 'int|str'):
 
 
 def cls():
-    os.system('cls')
+    if platform.system() == 'Windows':
+        os.system('cls')
+    else:
+        os.system('clear')
