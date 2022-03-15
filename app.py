@@ -140,7 +140,7 @@ def simple_help():
         'remove [index_name]': 'Removes index from database.',
         'load [index_name]': 'Loads index to memory.',
         'unload': 'Unloads index from memory.',
-        'diff [added|renamed|moved|deleted|modified]': 'Displays changes occured since index was added.',
+        'diff [added|renamed|moved|deleted|modified] [--tree]': 'Displays changes occured since index was added.',
         'overwrite': 'Overwrite current changes into database.',
         'help': 'Displays simple help screen.',
         'sudo help': 'Displays advance help screen.'
@@ -157,7 +157,7 @@ def advance_help():
         '(remove|delete|del|rem) [index_name]': 'Removes index from database.',
         '(load|use|check|checkout) [index_name]': 'Loads index to memory.',
         'unload': 'Unloads index from memory.',
-        '(diff|changes) [added|renamed|moved|deleted|modified]': 'Displays changes occured since index was added.',
+        '(diff|changes) [added|renamed|moved|deleted|modified] [--tree]': 'Displays changes occured since index was added.',
         'overwrite': 'Overwrite current changes into database.',
         '(help|?|/?)': 'Displays simple help screen.',
         'sudo (help|?|/?)': 'Displays advance help screen.'
