@@ -1,5 +1,4 @@
 import os
-import sys
 import platform
 
 def milis_to_alpha(mili: 'int|str'):

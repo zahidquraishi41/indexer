@@ -4,6 +4,7 @@ import traceback
 from helper.tracker import Tracker
 from helper.database import Database
 from helper.utils import cls
+from helper.tree_view import TreeView
 '''UI for this app.'''
 
 
@@ -61,7 +62,7 @@ def execute(command: str):
         return
 
     # DIFF
-    pattern = r'(diff|changes)( added| renamed| moved| deleted| modified){0,1}'
+    pattern = r'(diff|changes)( added| renamed| moved| deleted| modified){0,1}( --tree){0,1}'
     match = re.compile(pattern).fullmatch(command)
 
     if match:
@@ -79,7 +80,13 @@ def execute(command: str):
                    'renamed': changes.RENAMED, 'moved': changes.MOVED,
                    'modified': changes.MODIFIED}
             changes = changes.filter(map[ch_type])
-        changes.human_readable()
+        if match.group(3):
+            if ch_type and ch_type != 'moved':
+                tv = TreeView()
+                tv.add_paths(changes.to_list())
+                tv.display()
+                return
+        changes.display()
         return
 
     # OVERWRITE

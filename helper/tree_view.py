@@ -51,7 +51,6 @@ class TreeView:
             TreeView._display(ref[name], sort, spaces+indent, indent)
 
     def display(self):
-        print(self.data)
         if len(self.data['.']) == 0:
             print('Nothing to display.')
             return

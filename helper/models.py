@@ -1,5 +1,6 @@
 import os
 import datetime as dt
+from typing import List
 from colorama import init
 from colorama import Fore
 
@@ -87,31 +88,52 @@ class Changes:
         filtered_changes.changes = filtered
         return filtered_changes
 
-    def human_readable(self):
-        if len(self.changes) == 0:
-            print('No changes.')
+    def to_list(self) -> List[str]:
+        converted = []
         for change in self.changes:
             if change[0] == self.ADDED:
-                print(Fore.GREEN + change[0] + '\t' + change[1])
+                converted.append(change[0] + '\t' + change[1])
 
             if change[0] == self.DELETED:
-                print(Fore.RED + change[0] + '\t' + change[1])
+                converted.append(change[0] + '\t' + change[1])
 
             if change[0] == self.MODIFIED:
                 old_ts = dt.datetime.fromtimestamp(change[2])
                 old_date = old_ts.strftime('%a, %m %Y - %T')
                 new_ts = dt.datetime.fromtimestamp(change[3])
                 new_date = new_ts.strftime('%a, %m %Y - %T')
-                print(Fore.MAGENTA + change[0] + '\t' +
-                      change[1] + ': ' + old_date + ' --> ' + new_date)
+                converted.append(change[0] + '\t' + change[1] + ': ' +
+                                 old_date + ' --> ' + new_date)
 
             if change[0] == self.MOVED:
-                print(Fore.BLUE + change[0] + '\t' +
-                      change[1] + ' --> ' + change[3])
+                converted.append(change[0] + '\t' + change[1] +
+                                 ' --> ' + change[3])
 
             if change[0] == self.RENAMED:
-                print(Fore.CYAN + change[0] + '\t' +
-                      change[1] + ' --> ' + change[3])
+                converted.append(change[0] + '\t' + change[1] +
+                                 ' --> ' + change[3])
+        return converted
+
+    def display(self):
+        if len(self.changes) == 0:
+            print('No changes.')
+
+        for i, e in enumerate(self.to_list()):
+            change = self.changes[i][0]
+            if change == self.ADDED:
+                print(Fore.GREEN + e)
+
+            if change == self.DELETED:
+                print(Fore.RED + e)
+
+            if change == self.MODIFIED:
+                print(Fore.MAGENTA + e)
+
+            if change == self.MOVED:
+                print(Fore.BLUE + e)
+
+            if change == self.RENAMED:
+                print(Fore.CYAN + e)
 
     def __str__(self):
         return str(self.changes)
